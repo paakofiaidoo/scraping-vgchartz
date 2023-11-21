@@ -4,7 +4,7 @@ const {writeFileSync, existsSync, readFileSync} = require('fs');
 
 const baseUrl = 'https://www.vgchartz.com/games/games.php?page=';
 const queryParams = '&order=ReleaseDate&direction=DESC&name=&keyword=&console=&region=All&developer=&publisher=&goty_year=&genre=&boxart=Both&banner=Both&ownership=Both&showmultiplat=No&results=50&order=Sales&showtotalsales=0&showtotalsales=1&showpublisher=0&showpublisher=1&showvgchartzscore=0&showvgchartzscore=1&shownasales=0&shownasales=1&showdeveloper=0&showdeveloper=1&showcriticscore=0&showcriticscore=1&showpalsales=0&showpalsales=1&showreleasedate=0&showreleasedate=1&showuserscore=0&showuserscore=1&showjapansales=0&showjapansales=1&showlastupdate=0&showlastupdate=1&showothersales=0&showothersales=1&showshipped=0&showshipped=1';
-const csvFilePath = 'output.csv';
+const csvFilePath = 'output2.csv';
 // const totalPages = 2;
 const totalPages = 1271;
 
@@ -68,7 +68,7 @@ fetchAllPages().then(() => {
 })
 
 function appendToFile(dataRows) {
-    const csvContent = dataRows.map(row => row.join(',')).join('\n');
+    const csvContent = dataRows.map(row => "\""+row.join('","')).join('"\n');
     let existingCsvContent = 'rank, imageUrl, gameLink, gameTitle, platform,Publisher, developer, VGChartzScore, CriticScore,UserScore, TotalShipped, TotalSales, NASales,PALSales, JapanSales, OtherSales, ReleaseDate, LastUpdate\n';
     if (existsSync(csvFilePath)) {
         existingCsvContent = readFileSync(csvFilePath, 'utf-8');
