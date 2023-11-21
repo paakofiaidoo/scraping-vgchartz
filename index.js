@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const {writeFileSync, existsSync, readFileSync} = require('fs');
 
 const baseUrl = 'https://www.vgchartz.com/games/games.php?page=';
-const queryParams = '&name=&keyword=&console=&region=All&developer=&publisher=&goty_year=&genre=&boxart=Both&banner=Both&ownership=Both&showmultiplat=No&results=50&order=Sales&showtotalsales=0&showtotalsales=1&showpublisher=0&showpublisher=1&showvgchartzscore=0&showvgchartzscore=1&shownasales=0&shownasales=1&showdeveloper=0&showdeveloper=1&showcriticscore=0&showcriticscore=1&showpalsales=0&showpalsales=1&showreleasedate=0&showreleasedate=1&showuserscore=0&showuserscore=1&showjapansales=0&showjapansales=1&showlastupdate=0&showlastupdate=1&showothersales=0&showothersales=1&showshipped=0&showshipped=1';
+const queryParams = '&order=ReleaseDate&direction=DESC&name=&keyword=&console=&region=All&developer=&publisher=&goty_year=&genre=&boxart=Both&banner=Both&ownership=Both&showmultiplat=No&results=50&order=Sales&showtotalsales=0&showtotalsales=1&showpublisher=0&showpublisher=1&showvgchartzscore=0&showvgchartzscore=1&shownasales=0&shownasales=1&showdeveloper=0&showdeveloper=1&showcriticscore=0&showcriticscore=1&showpalsales=0&showpalsales=1&showreleasedate=0&showreleasedate=1&showuserscore=0&showuserscore=1&showjapansales=0&showjapansales=1&showlastupdate=0&showlastupdate=1&showothersales=0&showothersales=1&showshipped=0&showshipped=1';
 const csvFilePath = 'output.csv';
 // const totalPages = 2;
 const totalPages = 1271;
@@ -11,6 +11,7 @@ const totalPages = 1271;
 const fetchDataForPage = async (page) => {
     try {
         const response = await axios.get(`${baseUrl}${page}${queryParams}`);
+        console.log(`${baseUrl}${page}${queryParams}`);
         const $ = cheerio.load(response.data);
         const dataRows = [];
 
